@@ -14,7 +14,7 @@ A fast, secure, and 100% client-side file conversion web app. Convert documents,
 
 ### 🖼️ Image Conversions
 - **Format Support**: Convert between JPG, PNG, WEBP, GIF, BMP, and **HEIC** (iPhone photos!)
-- **HEIC Support**: Automatically converts iPhone photos to standard formats
+- **HEIC Support**: Automatically converts iPhone photos to standard formats (requires internet connection)
 - **Resize Images**: Set custom width and height
 - **Quality Control**: Adjust image quality from 10% to 100%
 - **Compression**: Optimize image file sizes
@@ -164,10 +164,11 @@ file_converter/
 | DOCX | MD, TXT | - |
 | MD | DOCX, TXT | **Full formatting preserved** |
 | TXT | MD, DOCX | - |
-| JPG/JPEG | PNG, WEBP, GIF | Resize, Quality |
-| PNG | JPG, WEBP, GIF | Resize, Quality |
-| WEBP | JPG, PNG, GIF | Resize, Quality |
-| GIF | JPG, PNG, WEBP | Resize, Quality |
+| JPG/JPEG | PNG, WEBP, GIF, BMP | Resize, Quality |
+| PNG | JPG, WEBP, GIF, BMP | Resize, Quality |
+| WEBP | JPG, PNG, GIF, BMP | Resize, Quality |
+| GIF | JPG, PNG, WEBP, BMP | Resize, Quality |
+| BMP | JPG, PNG, WEBP, GIF | Resize, Quality |
 | **HEIC/HEIF** | **JPG, PNG, WEBP, GIF** | **Resize, Quality** |
 
 ## 🤝 Contributing

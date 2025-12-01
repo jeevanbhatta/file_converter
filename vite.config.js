@@ -20,7 +20,8 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    include: ['mammoth', 'turndown', 'marked', 'docx', 'browser-image-compression', 'heic2any']
+    include: ['mammoth', 'turndown', 'marked', 'docx', 'browser-image-compression', 'heic2any'],
+    exclude: []
   }
 })
 

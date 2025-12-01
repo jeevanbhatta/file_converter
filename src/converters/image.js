@@ -3,12 +3,14 @@ import heic2any from 'heic2any';
 
 /**
  * Convert HEIC to standard format first if needed
+ * Using heic2any with error handling for WASM loading
  */
 async function convertHeicIfNeeded(file) {
   const ext = file.name.split('.').pop().toLowerCase();
   
   if (ext === 'heic' || ext === 'heif') {
     try {
+      // heic2any loads WASM from CDN by default
       const convertedBlob = await heic2any({
         blob: file,
         toType: 'image/jpeg',
@@ -23,7 +25,24 @@ async function convertHeicIfNeeded(file) {
         type: 'image/jpeg'
       });
     } catch (error) {
-      throw new Error(`Failed to convert HEIC: ${error.message}`);
+      console.error('HEIC conversion error:', error);
+      
+      // Provide helpful error message based on the error type
+      if (error.message && error.message.includes('fetch')) {
+        throw new Error(
+          'HEIC conversion failed: Unable to load required files. ' +
+          'Please check your internet connection and try again, or convert your HEIC image using your device\'s built-in tools. ' +
+          'On Mac: Open with Preview > Export as JPG. On iPhone: Settings > Camera > Formats > Most Compatible.'
+        );
+      } else if (error.message && error.message.includes('not supported')) {
+        throw new Error(
+          'HEIC format is not supported in this browser. ' +
+          'Please convert your HEIC image to JPG/PNG using your device\'s built-in tools first. ' +
+          'On Mac: Open with Preview > Export as JPG. On iPhone: Settings > Camera > Formats > Most Compatible.'
+        );
+      } else {
+        throw new Error(`Failed to convert HEIC: ${error.message || 'Unknown error'}`);
+      }
     }
   }
   
@@ -221,6 +240,7 @@ function getMimeType(format) {
 
 /**
  * Get supported image formats
+ * Note: HEIC/HEIF support requires internet connection for WASM files
  */
 export function getSupportedImageFormats() {
   return ['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp', 'heic', 'heif'];
